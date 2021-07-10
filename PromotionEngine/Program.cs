@@ -107,16 +107,16 @@ namespace PromotionEngine
                 int Count = MixPromo.Count();
                 for (int i = 0; i < Count; i++)
                 {
-                    if (i != Count - 1)
-                    {   amount = (Convert.ToInt32(td[2])) * Convert.ToInt32(actualPrice);
-                        Console.WriteLine("Unit: {0}, Quantity: {1}, Amount: {2}", MixPromo[i], 5, amount);
-                        TotalAmount = TotalAmount + amount;
+                     if (i != Count - 1)
+                    {
+                        amount = ((Convert.ToInt32(td[2])) / PramotionQuantity) * PromoRatePrice + ((Convert.ToInt32(td[2])) % PramotionQuantity) * Convert.ToInt32(actualPrice);
+                        Console.WriteLine("Unit: {0}, Quantity: {1}, Amount: {2}", MixPromo[i], 5, 0);                        
                     }
                     else
                     {
-                        amount = ((Convert.ToInt32(td[2])) / PramotionQuantity) * PromoRatePrice + ((Convert.ToInt32(td[2])) % PramotionQuantity) * Convert.ToInt32(actualPrice);
-                        Console.WriteLine("Unit: {0}, Quantity: {1}, Amount: {2}", MixPromo[i], 5, 0);
-                        //TotalAmount = TotalAmount + amount;
+                        amount = (Convert.ToInt32(td[2])) * Convert.ToInt32(actualPrice);
+                        Console.WriteLine("Unit: {0}, Quantity: {1}, Amount: {2}", MixPromo[i], 5, amount);
+                        TotalAmount = TotalAmount + amount;
                     }
                 }
             }
