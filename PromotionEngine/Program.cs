@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -60,14 +60,24 @@ namespace PromotionEngine
             {
                 actualPrice = PricePerUnit[userList.Key];
                 var UnitKey = PromoRateMaster.Find(x => x.Unit.Contains(userList.Key)).Unit;
-                if (UnitKey != "")
+                string[] arrMixAvai= UnitKey.Split('&');
+                int Count = arrMixAvai.Count();                
+                 if (UnitKey != "")
                 {
                     var PerUnitDetails = PromoRateMaster.Find(x => x.Unit == UnitKey);
                     var PramotionQuantity = PerUnitDetails.Quantity;
                     var PromoRatePrice = PerUnitDetails.Price;
                     var PromoID = PerUnitDetails.PromoID;
                     var IsMixPromo = PerUnitDetails.IsMixPromo;
-                    if (IsMixPromo) 
+                    bool MixPromoSelected = false;
+                    for (int i = 0; i < Count-1; i++)
+                    {
+                        if (userSelectionList.ContainsKey(arrMixAvai[i]))
+                            MixPromoSelected = true;
+                        else
+                            MixPromoSelected = false;
+                    }
+                    if (IsMixPromo && MixPromoSelected==true) 
                     {
                         DataRow dtRow = tblMixShipment.NewRow();
                         dtRow["PromoID"] = PromoID;
@@ -107,7 +117,7 @@ namespace PromotionEngine
                 int Count = MixPromo.Count();
                 for (int i = 0; i < Count; i++)
                 {
-                     if (i != Count - 1)
+                    if (i != Count - 1)
                     {
                         amount = ((Convert.ToInt32(td[2])) / PramotionQuantity) * PromoRatePrice + ((Convert.ToInt32(td[2])) % PramotionQuantity) * Convert.ToInt32(actualPrice);
                         Console.WriteLine("Unit: {0}, Quantity: {1}, Amount: {2}", MixPromo[i], 5, 0);                        
